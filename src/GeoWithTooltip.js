@@ -11,8 +11,8 @@ class GeoWithTooltip extends Component {
     content: "",
     color: "#ECEFF1"
   };
-  constructor(props) {
-    super(props);
+
+  componentDidMount() {
     this.setContentAndColor();
   }
   componentDidUpdate(prevProps) {
