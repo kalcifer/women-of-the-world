@@ -7,6 +7,12 @@ import {
 } from "react-simple-maps";
 import { actions, Tooltip } from "redux-tooltip";
 import { connect } from "react-redux";
+import giiData from "./gii";
+
+const gii = giiData.reduce((fullData, countryData) => {
+  fullData[countryData.Country] = countryData;
+  return fullData;
+}, {});
 
 const { show, hide } = actions;
 
@@ -20,10 +26,13 @@ class App extends Component {
   handleMove = (geography, evt) => {
     const x = evt.clientX;
     const y = evt.clientY + window.pageYOffset;
+    const countryName = geography.properties.name;
+    const data = gii[geography.properties.name];
+    const content = data ? data["GII Value"] : countryName;
     this.props.dispatch(
       show({
         origin: { x, y },
-        content: geography.properties.name
+        content
       })
     );
   };
