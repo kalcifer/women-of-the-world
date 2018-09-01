@@ -5,8 +5,11 @@
   "dependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
     "react-scripts": "1.1.5",
-    "react-simple-maps": "^0.12.1"
+    "react-simple-maps": "^0.12.1",
+    "redux": "^4.0.0",
+    "redux-tooltip": "https://github.com/salmankhann/redux-tooltip/tarball/8895525d5e2900f28c4e88b5f7fae94966db9b1c"
   },
   "scripts": {
     "start": "react-scripts start",
