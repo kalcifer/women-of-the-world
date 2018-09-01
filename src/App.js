@@ -3,6 +3,7 @@ import Map from "./Map";
 import { Provider } from "react-redux";
 import { initStore } from "./store";
 import Selector from "./select-type";
+import Desc from "./descriptions";
 
 export default class extends Component {
   store = null;
@@ -15,6 +16,7 @@ export default class extends Component {
       <Provider store={this.store}>
         <Fragment>
           <Selector />
+          <Desc />
           <Map />
         </Fragment>
       </Provider>
