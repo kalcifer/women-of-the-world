@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Map from "./Map";
 import { Provider } from "react-redux";
 import { initStore } from "./store";
+import Selector from "./select-type";
 
 export default class extends Component {
   store = null;
@@ -12,7 +13,10 @@ export default class extends Component {
   render() {
     return (
       <Provider store={this.store}>
-        <Map />
+        <Fragment>
+          <Selector />
+          <Map />
+        </Fragment>
       </Provider>
     );
   }

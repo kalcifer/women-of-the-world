@@ -1,20 +1,8 @@
 import React, { Component } from "react";
-import {
-  ComposableMap,
-  ZoomableGroup,
-  Geographies,
-  Geography
-} from "react-simple-maps";
-import { actions, Tooltip } from "redux-tooltip";
-import { connect } from "react-redux";
-import giiData from "./gii";
+import { ComposableMap, ZoomableGroup, Geographies } from "react-simple-maps";
+import { Tooltip } from "redux-tooltip";
 
-const gii = giiData.reduce((fullData, countryData) => {
-  fullData[countryData.Country] = countryData;
-  return fullData;
-}, {});
-
-const { show, hide } = actions;
+import GeoWithTooltip from "./GeoWithTooltip";
 
 const wrapperStyles = {
   width: "100%",
@@ -23,22 +11,6 @@ const wrapperStyles = {
 };
 
 class App extends Component {
-  handleMove = (geography, evt) => {
-    const x = evt.clientX;
-    const y = evt.clientY + window.pageYOffset;
-    const countryName = geography.properties.name;
-    const data = gii[geography.properties.name];
-    const content = data ? data["GII Value"] : countryName;
-    this.props.dispatch(
-      show({
-        origin: { x, y },
-        content
-      })
-    );
-  };
-  handleLeave = () => {
-    this.props.dispatch(hide());
-  };
   render() {
     return (
       <div style={wrapperStyles}>
@@ -60,34 +32,9 @@ class App extends Component {
                 geographies.map(
                   geography =>
                     geography.id !== "ATA" && (
-                      <Geography
-                        data-tip
-                        data-for={geography.id}
+                      <GeoWithTooltip
                         geography={geography}
                         projection={projection}
-                        onMouseMove={this.handleMove}
-                        onMouseLeave={this.handleLeave}
-                        style={{
-                          default: {
-                            fill: "#ECEFF1",
-                            stroke: "#607D8B",
-                            strokeWidth: 0.75,
-                            outline: "none"
-                          },
-                          hover: {
-                            cursor: "pointer",
-                            fill: "#607D8B",
-                            stroke: "#607D8B",
-                            strokeWidth: 0.75,
-                            outline: "none"
-                          },
-                          pressed: {
-                            fill: "#FF5722",
-                            stroke: "#607D8B",
-                            strokeWidth: 0.75,
-                            outline: "none"
-                          }
-                        }}
                       />
                     )
                 )
@@ -101,4 +48,4 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default App;
