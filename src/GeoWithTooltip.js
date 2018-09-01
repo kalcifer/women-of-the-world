@@ -7,18 +7,29 @@ import giiData from "./gii";
 const { show, hide } = actions;
 
 class GeoWithTooltip extends Component {
-  content = "";
-  color = "#ECEFF1";
+  state = {
+    content: "",
+    color: "#ECEFF1"
+  };
   constructor(props) {
     super(props);
-    const { geography, contentType } = props;
+    this.setContentAndColor();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.contentType !== prevProps.contentType) {
+      this.setContentAndColor();
+    }
+  }
+  setContentAndColor = () => {
+    const { geography, contentType } = this.props;
     const countryName = geography.properties.name;
-    const calc = calcs[contentType];
-    this.content = giiData[countryName]
+    const calc = calcs[contentType] || calcs["default"];
+    const content = giiData[countryName]
       ? giiData[countryName][contentType]
       : countryName;
-    this.color = calc(this.content);
-  }
+    const color = calc(content);
+    this.setState({ content, color });
+  };
   handleMove = (geography, evt) => {
     const x = evt.clientX;
     const y = evt.clientY + window.pageYOffset;
@@ -26,7 +37,7 @@ class GeoWithTooltip extends Component {
     this.props.dispatch(
       show({
         origin: { x, y },
-        content: this.content
+        content: this.state.content
       })
     );
   };
@@ -35,6 +46,7 @@ class GeoWithTooltip extends Component {
   };
   render() {
     const { geography, projection } = this.props;
+    const { color } = this.state;
     return (
       <Geography
         geography={geography}
@@ -43,7 +55,7 @@ class GeoWithTooltip extends Component {
         onMouseLeave={this.handleLeave}
         style={{
           default: {
-            fill: this.color,
+            fill: color,
             stroke: "#607D8B",
             strokeWidth: 0.75,
             outline: "none"

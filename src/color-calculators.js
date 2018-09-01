@@ -14,5 +14,6 @@ export const calcs = {
           ? colors.middle
           : colors.last
       : colors.default;
-  }
+  },
+  default: () => colors.default
 };

@@ -17,7 +17,7 @@ class Selector extends Component {
   render() {
     return (
       <Downshift
-        onChange={({ value }) => this.props.dispatch(changeContentType(value))}
+        onChange={value => this.props.dispatch(changeContentType(value))}
         itemToString={item => (item ? item : "")}
       >
         {({
