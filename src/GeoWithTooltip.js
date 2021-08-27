@@ -37,7 +37,7 @@ class GeoWithTooltip extends Component {
     this.props.dispatch(
       show({
         origin: { x, y },
-        content: this.state.content
+        content: `${geography.properties.name} - ${this.state.content}`
       })
     );
   };

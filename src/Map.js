@@ -16,11 +16,11 @@ class App extends Component {
       <div style={wrapperStyles}>
         <ComposableMap
           projectionConfig={{
-            scale: 205,
+            scale: 220,
             rotation: [-11, 0, 0]
           }}
           width={980}
-          height={551}
+          height={750}
           style={{
             width: "100%",
             height: "auto"
